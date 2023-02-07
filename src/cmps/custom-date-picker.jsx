@@ -3,13 +3,12 @@ import { useState } from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
 import { FiChevronRight } from 'react-icons/fi'
 
-export const CustomDatePicker = () => {
+export const CustomDatePicker = ({ onClosePicker, start, end, setDates }) => {
   const [currYear, setCurrYear] = useState(new Date().getFullYear())
   const [currMonth, setCurrMonth] = useState(new Date().getMonth())
-  const [startDate, setStartDate] = useState(null)
-  const [endDate, setEndDate] = useState(null)
+  const [startDate, setStartDate] = useState(start)
+  const [endDate, setEndDate] = useState(end)
 
-  console.log(startDate, endDate)
   const months = [
     'January',
     'February',
@@ -28,6 +27,10 @@ export const CustomDatePicker = () => {
   useEffect(() => {
     checkYear()
   }, [currMonth])
+
+  useEffect(() => {
+    setDates(startDate, endDate)
+  }, [startDate, endDate])
 
   const checkYear = () => {
     if (currMonth < 0 || currMonth > 11) {
@@ -69,12 +72,14 @@ export const CustomDatePicker = () => {
     return nums
   }
 
-  const moveMonth = (icon) => {
+  const moveMonth = (ev, icon) => {
+    ev.stopPropagation()
     setCurrMonth((prevMonth) => {
       return icon === 'prev' ? prevMonth - 1 : prevMonth + 1
     })
   }
-  const chooseDays = (day, month, year) => {
+  const chooseDays = (ev, day, month, year) => {
+    ev.stopPropagation()
     if (
       (day < new Date().getDate() &&
         year === new Date().getFullYear() &&
@@ -124,10 +129,16 @@ export const CustomDatePicker = () => {
           {months[currMonth]} {currYear}
         </p>
         <div className='icons'>
-          <span onClick={() => moveMonth('prev')} className='symbols-rounded'>
+          <span
+            onClick={(ev) => moveMonth(ev, 'prev')}
+            className='symbols-rounded'
+          >
             <FiChevronLeft />
           </span>
-          <span onClick={() => moveMonth('next')} className='symbols-rounded'>
+          <span
+            onClick={(ev) => moveMonth(ev, 'next')}
+            className='symbols-rounded'
+          >
             <FiChevronRight />
           </span>
         </div>
@@ -153,7 +164,7 @@ export const CustomDatePicker = () => {
           {getLoopDateNums('currDate').map((dateNum, index) => {
             return (
               <li
-                onClick={() => chooseDays(dateNum, currMonth, currYear)}
+                onClick={(ev) => chooseDays(ev, dateNum, currMonth, currYear)}
                 className={`
                  ${
                    (dateNum === startDate?.day &&
@@ -191,6 +202,14 @@ export const CustomDatePicker = () => {
           })}
         </ul>
       </div>
+      <button
+        className='clear-calender'
+        onClick={(ev) => {
+          onClosePicker(ev)
+        }}
+      >
+        Done
+      </button>
     </section>
   )
 }

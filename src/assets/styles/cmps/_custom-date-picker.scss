@@ -1,18 +1,22 @@
 .custom-date-picker {
-    border: #878787 1px solid;
+  border: #878787 1px solid;
   font-family: 'Poppins', sans-serif;
-  width: 450px;
+  width: 500px;
   background: #fff;
   border-radius: 10px;
   padding: 0;
   margin: 0;
+  z-index: 20;
+  margin-bottom: 50px;
+
   header {
+    margin-top: 80px;
     display: flex;
     // align-items: center;
     padding: 25px 30px 10px;
     justify-content: space-between;
     .current-date {
-      font-size: 1.45rem;
+      font-size: 1rem;
       font-weight: 600;
     }
     .icons {
@@ -20,7 +24,7 @@
       span {
         border-radius: 50%;
         color: #878787;
-        font-size: 1.7rem;
+        font-size: 1.45rem;
         cursor: pointer;
         height: 30px;
         width: 30px;
@@ -85,14 +89,14 @@
           color: #aaa;
         }
         &.range {
-          background: #ebd2f5;
-          &.first{
+          background: #c0f6c8;
+          &.first {
             border-radius: 10px 0 0 10px;
           }
-          &.last{
+          &.last {
             border-radius: 0 10px 10px 0;
           }
-          &.one{
+          &.one {
             border-radius: 10px;
           }
         }
@@ -100,10 +104,26 @@
         &.active {
           color: #fff;
           &::before {
-            background: #9b59b6;
+            background: #59b669;
           }
         }
       }
     }
   }
+  .clear-calender{
+    margin-left: 200px;
+    /* margin-bottom: 10px; */
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 700;
+    display: block;
+    width: 100px;
+    height: 40px;
+    /* margin: 10px 0px; */
+    border-radius: 10px;
+    background-color: #59b669;
+}
+
+    
+  
 }

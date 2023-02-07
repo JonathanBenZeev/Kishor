@@ -1,9 +1,24 @@
 // import { DatePicker } from './date-picker'
+import { useState } from 'react'
 import { OrderForm } from './order-form'
 // import { ImagGallery } from './imag-gallery'
 // import { CustomDatePicker } from './custom-date-picker'
 
 export const StayApp = () => {
+  const [isDatepickerOpen, setIsDatepickerOpen] = useState(false)
+
+  const onTogglePicker = (ev) => {
+    ev.stopPropagation()
+    setIsDatepickerOpen(!isDatepickerOpen)
+  }
+  const onOpenPicker = (ev) => {
+    ev.stopPropagation()
+    setIsDatepickerOpen(true)
+  }
+  const onClosePicker = (ev) => {
+    if (ev) ev.stopPropagation()
+    setIsDatepickerOpen(false)
+  }
   const home = {
     id: '121',
     name: 'Kishor',
@@ -37,7 +52,7 @@ export const StayApp = () => {
   }
 
   return (
-    <section className='stay-app'>
+    <section className='stay-app' onClick={(ev) => onClosePicker(ev)}>
       <div className='date'></div>
       <h3>{home.name}</h3>
 
@@ -56,7 +71,12 @@ export const StayApp = () => {
           Aut accusamus, nobis modi ea eligendi perspiciatis quae laboriosam
           ullam adipisci omnis! Nesciunt.
         </div>
-        <OrderForm />
+        <OrderForm
+          isDatepickerOpen={isDatepickerOpen}
+          onTogglePicker={onTogglePicker}
+          onOpenPicker={onOpenPicker}
+          onClosePicker={onClosePicker}
+        />
       </section>
 
       {/* <CustomDatePicker /> */}
