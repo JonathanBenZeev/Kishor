@@ -88,6 +88,9 @@
         &.inactive {
           color: #aaa;
         }
+        &.busy{
+          text-decoration: line-through;
+        }
         &.range {
           background: #c0f6c8;
           &.first {

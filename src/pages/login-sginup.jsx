@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
+import { signup } from '../store/user.actions'
+import { userService } from '../services/user.service.js'
 
 export const LoginSignup = () => {
   const { pathname } = useLocation()
@@ -9,6 +11,7 @@ export const LoginSignup = () => {
     password: '',
     fullname: '',
   })
+
 
   const onIsSignup = () => {
     if (pathname === '/signup') setIsSignup(true)
@@ -20,6 +23,12 @@ export const LoginSignup = () => {
     clearFields()
   }, [pathname])
 
+  const handleChange = (ev) => {
+    const field = ev.target.name
+    const value = ev.target.value
+    setCredentials({ ...credentials, [field]: value })
+  }
+
   const clearFields = () => {
     setCredentials({
       username: '',
@@ -28,8 +37,11 @@ export const LoginSignup = () => {
     })
   }
 
-  const onSignUp = () => {
-    console.log('fff')
+  const onSignUp = (ev = null) => {
+    if (ev) ev.preventDefault()
+    if (!credentials.username || !credentials.password || !credentials.fullname)
+      return
+    signup(credentials)
   }
   const onLogin = () => {
     console.log('fff')
@@ -50,7 +62,7 @@ export const LoginSignup = () => {
                 name='fullname'
                 placeholder='Enter full name'
                 value={credentials.fullname}
-                // onChange={handleChange}
+                onChange={handleChange}
               />
             </>
           ) : (
@@ -62,7 +74,7 @@ export const LoginSignup = () => {
             name='username'
             placeholder='Enter username'
             value={credentials.username}
-            // onChange={handleChange}
+            onChange={handleChange}
           />
           <input
             type='password'
@@ -70,7 +82,7 @@ export const LoginSignup = () => {
             name='password'
             placeholder='Enter password'
             value={credentials.password}
-            // onChange={handleChange}
+            onChange={handleChange}
           />
           <button className={`logbtn ${isSignup ? 'signup' : 'login'}`}>
             {isSignup ? 'Sign up' : 'Log in'}

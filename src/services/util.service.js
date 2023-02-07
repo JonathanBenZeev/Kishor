@@ -1,7 +1,8 @@
 export const utilService = {
     makeId,
     saveToStorage,
-    loadFromStorage
+    loadFromStorage,
+    cutName
 }
 
 function makeId(length = 6) {
@@ -23,4 +24,8 @@ function saveToStorage(key, value) {
 function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return data ? JSON.parse(data) : undefined
+}
+
+function cutName(str) {
+    return str.substring(0, 1).toUpperCase()
 }
