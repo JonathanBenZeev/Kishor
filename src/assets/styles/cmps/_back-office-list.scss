@@ -1,0 +1,17 @@
+.back-office-list {
+  .back-office {
+    display: grid;
+    grid-template-columns: 500px 115px 130px 130px;
+    grid-template-rows: 50px;
+    align-items: center;
+  }
+
+  .back-office-preview {
+    grid-template-columns: 500px 116px 130px 130px;
+    grid-template-rows: 50px;
+    display: grid;
+    margin-inline-start: -5px;
+    border-bottom: 1px solid lawngreen;
+    align-items: center;
+  }
+}

@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react'
-import { useLocation, Link } from 'react-router-dom'
-import { signup } from '../store/user.actions'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
+import { login, signup } from '../store/user.actions'
 import { userService } from '../services/user.service.js'
 
 export const LoginSignup = () => {
   const { pathname } = useLocation()
   const [isSignup, setIsSignup] = useState(false)
+  const navigate = useNavigate()
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
     fullname: '',
   })
-
+  
 
   const onIsSignup = () => {
     if (pathname === '/signup') setIsSignup(true)
@@ -43,8 +44,13 @@ export const LoginSignup = () => {
       return
     signup(credentials)
   }
-  const onLogin = () => {
-    console.log('fff')
+  const onLogin = (ev = null) => {
+    if (ev) ev.preventDefault()
+    if (!credentials.username || !credentials.password)
+      return
+    login(credentials)
+    navigate('/stay')
+
   }
   return (
     <section className='login-page flex column'>
