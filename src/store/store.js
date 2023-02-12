@@ -1,10 +1,12 @@
 import { createStore, combineReducers } from 'redux'
 
 import { userReducer } from './user.reducer.js'
+import { stayReducer } from './stay.reducer.js'
 
 
 const rootReducer = combineReducers({
   userModule: userReducer,
+  stayModule: stayReducer,
 
 })
 

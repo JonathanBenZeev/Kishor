@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 // import { BsPlusCircle } from 'react-icons/bs'
 import { HiOutlineMinusCircle, HiOutlinePlusCircle } from 'react-icons/hi'
+import { userService } from '../services/user.service'
+import { utilService } from '../services/util.service'
 
 import { CustomDatePicker } from './custom-date-picker'
 
@@ -9,6 +11,8 @@ export const OrderForm = ({
   onTogglePicker,
   onOpenPicker,
   onClosePicker,
+  onUpdateStay,
+  inventaions,
 }) => {
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
@@ -30,9 +34,22 @@ export const OrderForm = ({
     else return `${endDate.day}/${endDate.month + 1}/${endDate.year}`
   }
 
+  const setOrder = (ev = null) => {
+    ev.preventDefault()
+    const inventaiton = {
+      id: utilService.makeId(),
+      fullname: userService.getLoggedinUser().fullname,
+      startDate: getDate('start'),
+      endDate: getDate('end'),
+      guests: guestCount,
+      status: 'pending',
+    }
+    onUpdateStay(inventaiton)
+  }
+
   return (
     <section className='order-form'>
-      <form>
+      <form onSubmit={setOrder}>
         <div className='date-piker'>
           <div
             onClick={(ev) => onTogglePicker(ev)}
@@ -73,6 +90,7 @@ export const OrderForm = ({
           <div className='picker' onClick={(ev) => onOpenPicker(ev)}>
             {isDatepickerOpen && (
               <CustomDatePicker
+                inventaions={inventaions}
                 setDates={setDates}
                 onClosePicker={onClosePicker}
                 start={startDate}

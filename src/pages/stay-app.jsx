@@ -1,11 +1,56 @@
-// import { DatePicker } from './date-picker'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { OrderForm } from '../cmps/order-form'
-import { ImagGallery } from '../cmps/imag-gallery'
-// import { CustomDatePicker } from './custom-date-picker'
+// import { stayService } from '../services/stay.service.local'
+import { setStay, updateStay } from '../store/stay.actions'
+// import { ImagGallery } from '../cmps/imag-gallery'
 
 export const StayApp = () => {
   const [isDatepickerOpen, setIsDatepickerOpen] = useState(false)
+  const home = useSelector((storeState) => storeState.stayModule.stay)
+
+  useEffect(() => {
+    loadStay()
+  }, [])
+
+  async function loadStay() {
+    try {
+      await setStay()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const onUpdateStay = async (inventaiton) => {
+    try {
+      home.inventaions.unshift(inventaiton)
+      await updateStay(home)
+    } catch (err) {
+      console.log('Can not update stay', err)
+    }
+  }
+
+  const getBusyDates = () => {
+    const busyDays = []
+    const busy = home.inventaions.filter(
+      (inventaion) => inventaion.status === 'aproved'
+    )
+    busy.forEach((day) => {
+      let start = +day.startDate.split('/')[0]
+      let end = +day.endDate.split('/')[0]
+      let daysLength = end - start
+      for (let i = 0; i <= daysLength; i++) {
+        busyDays.push({
+          date: start,
+          monthDate: +day.startDate.split('/')[1] - 1,
+          yearDate: +day.startDate.split('/')[2],
+        })
+        start++
+      }
+    })
+
+    return busyDays
+  }
 
   const onTogglePicker = (ev) => {
     ev.stopPropagation()
@@ -19,38 +64,8 @@ export const StayApp = () => {
     if (ev) ev.stopPropagation()
     setIsDatepickerOpen(false)
   }
-  const home = {
-    id: '121',
-    name: 'Kishor',
-    imgs: [
-      {
-        id: 1,
-        img_url:
-          'https://res.cloudinary.com/dmldeettg/image/upload/v1674118717/WhatsApp_Image_2022-12-01_at_10.03.52_PM_1_plqzyq.jpg',
-      },
-      {
-        id: 2,
-        img_url:
-          'https://res.cloudinary.com/dmldeettg/image/upload/v1674118717/WhatsApp_Image_2022-12-01_at_10.03.52_PM_d5sntg.jpg',
-      },
-      {
-        id: 3,
-        img_url:
-          'https://res.cloudinary.com/dmldeettg/image/upload/v1674118716/WhatsApp_Image_2022-12-01_at_10.03.53_PM_xu4wij.jpg',
-      },
-      {
-        id: 4,
-        img_url:
-          'https://res.cloudinary.com/dmldeettg/image/upload/v1674118716/WhatsApp_Image_2022-12-01_at_10.03.53_PM_1_f9nun9.jpg',
-      },
-      {
-        id: 5,
-        img_url:
-          'https://res.cloudinary.com/dmldeettg/image/upload/v1674118717/WhatsApp_Image_2022-12-01_at_10.05.01_PM_mkw0ev.jpg',
-      },
-    ],
-  }
 
+  if (!home) return <h1>Loading..</h1>
   return (
     <section className='stay-app' onClick={(ev) => onClosePicker(ev)}>
       <div className='date'></div>
@@ -63,7 +78,7 @@ export const StayApp = () => {
           </div>
         ))}
       </div>
-      <ImagGallery imgs={home.imgs} />
+      {/* <ImagGallery imgs={home.imgs} /> */}
       <section className='details-container'>
         <div>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error
@@ -72,14 +87,14 @@ export const StayApp = () => {
           ullam adipisci omnis! Nesciunt.
         </div>
         <OrderForm
+          inventaions={getBusyDates()}
           isDatepickerOpen={isDatepickerOpen}
           onTogglePicker={onTogglePicker}
           onOpenPicker={onOpenPicker}
           onClosePicker={onClosePicker}
+          onUpdateStay={onUpdateStay}
         />
       </section>
-
-      {/* <CustomDatePicker /> */}
     </section>
   )
 }

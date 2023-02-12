@@ -3,7 +3,13 @@ import { useState } from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
 import { FiChevronRight } from 'react-icons/fi'
 
-export const CustomDatePicker = ({ onClosePicker, start, end, setDates }) => {
+export const CustomDatePicker = ({
+  onClosePicker,
+  start,
+  end,
+  setDates,
+  inventaions,
+}) => {
   const [currYear, setCurrYear] = useState(new Date().getFullYear())
   const [currMonth, setCurrMonth] = useState(new Date().getMonth())
   const [startDate, setStartDate] = useState(start)
@@ -23,15 +29,15 @@ export const CustomDatePicker = ({ onClosePicker, start, end, setDates }) => {
     'November',
     'December',
   ]
-  
+
   useEffect(() => {
     checkYear()
   }, [currMonth])
-  
+
   useEffect(() => {
     setDates(startDate, endDate)
   }, [startDate, endDate])
-  
+
   const checkYear = () => {
     if (currMonth < 0 || currMonth > 11) {
       var date = new Date(currYear, currMonth)
@@ -53,12 +59,11 @@ export const CustomDatePicker = ({ onClosePicker, start, end, setDates }) => {
   }
 
   const getBusyDates = (day, month, year) => {
-    var busyDates = [
-      { date: 9, monthDate: 1, yearDate: 2023 },
-      { date: 10, monthDate: 1, yearDate: 2023 },
-    ]
-     const busy = busyDates.some(date=>date.date===day&&date.monthDate===month&&date.yearDate===year)
-         if (busy) return 'inactive busy'
+    const busy = inventaions.some(
+      (date) =>
+        date.date === day && date.monthDate === month && date.yearDate === year
+    )
+    if (busy) return 'inactive busy'
   }
 
   const getLoopDateNums = (status) => {
@@ -90,7 +95,7 @@ export const CustomDatePicker = ({ onClosePicker, start, end, setDates }) => {
   }
   const chooseDays = (ev, day, month, year) => {
     ev.stopPropagation()
-    if(getBusyDates(day, month, year))return
+    if (getBusyDates(day, month, year)) return
     if (
       (day < new Date().getDate() &&
         year === new Date().getFullYear() &&
@@ -117,7 +122,7 @@ export const CustomDatePicker = ({ onClosePicker, start, end, setDates }) => {
   }
 
   const getDateRange = (day, month, year) => {
-   if (getBusyDates(day, month, year)) return
+    if (getBusyDates(day, month, year)) return
     if (
       day > startDate?.day &&
       day < endDate?.day &&
