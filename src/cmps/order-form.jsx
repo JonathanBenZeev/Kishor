@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-// import { BsPlusCircle } from 'react-icons/bs'
 import { HiOutlineMinusCircle, HiOutlinePlusCircle } from 'react-icons/hi'
 import { userService } from '../services/user.service'
 import { utilService } from '../services/util.service'
@@ -38,7 +37,10 @@ export const OrderForm = ({
     ev.preventDefault()
     const inventaiton = {
       id: utilService.makeId(),
-      fullname: userService.getLoggedinUser().fullname,
+      byUser: {
+        fullname: userService.getLoggedinUser().fullname,
+        id: userService.getLoggedinUser()._id,
+      },
       startDate: getDate('start'),
       endDate: getDate('end'),
       guests: guestCount,

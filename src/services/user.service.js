@@ -24,7 +24,7 @@ function remove(userId) {
 }
 
 async function signup(credentials) {
-
+    credentials.inventaions = []
     const user = await storageService.post(USER_KEY, credentials)
     _saveLoggedinUser(user)
     return user
@@ -84,12 +84,14 @@ function _createUsers() {
                 username: 'Ellen K',
                 password: 'secret',
                 isAdmin: true,
+                inventaions:[]
             },
             {
                 _id: 'u102',
                 fullname: 'David Krosney',
                 username: 'David K',
                 password: 'secret1',
+                inventaions:[]
             },
         ]
 

@@ -3,28 +3,21 @@ import { useSelector } from 'react-redux'
 import { OrderForm } from '../cmps/order-form'
 // import { stayService } from '../services/stay.service.local'
 import { setStay, updateStay } from '../store/stay.actions'
+import { updateUser } from '../store/user.actions'
 // import { ImagGallery } from '../cmps/imag-gallery'
 
 export const StayApp = () => {
   const [isDatepickerOpen, setIsDatepickerOpen] = useState(false)
   const home = useSelector((storeState) => storeState.stayModule.stay)
+  const user = useSelector((storeState) => storeState.userModule.user)
 
-  useEffect(() => {
-    loadStay()
-  }, [])
-
-  async function loadStay() {
-    try {
-      await setStay()
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
   const onUpdateStay = async (inventaiton) => {
     try {
       home.inventaions.unshift(inventaiton)
+      user.inventaions.unshift(inventaiton)
       await updateStay(home)
+      await updateUser(user)
     } catch (err) {
       console.log('Can not update stay', err)
     }
