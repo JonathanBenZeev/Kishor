@@ -1,7 +1,7 @@
 // import { DatePicker } from './date-picker'
 import { useState } from 'react'
 import { OrderForm } from './order-form'
-// import { ImagGallery } from './imag-gallery'
+import { ImagGallery } from './imag-gallery'
 // import { CustomDatePicker } from './custom-date-picker'
 
 export const StayApp = () => {
@@ -63,7 +63,7 @@ export const StayApp = () => {
           </div>
         ))}
       </div>
-      {/* <ImagGallery imgs={home.imgs} /> */}
+      <ImagGallery imgs={home.imgs} />
       <section className='details-container'>
         <div>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error
