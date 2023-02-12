@@ -13,24 +13,28 @@ export const HomePage = () => {
       status: 'pending',
       startDate: '22/01/2023',
       endDate: '23/01/2023',
+      guests: 2
     },
     {
       id: '2',
       status: 'aproved',
       startDate: '22/01/2023',
       endDate: '23/01/2023',
+      guests: 1
     },
     {
       id: '3',
       status: 'pending',
       startDate: '22/01/2023',
       endDate: '23/01/2023',
+      guests: 4
     },
     {
       id: '4',
       status: 'rejected',
       startDate: '22/01/2023',
       endDate: '23/01/2023',
+      guests: 3
     },
   ]
 

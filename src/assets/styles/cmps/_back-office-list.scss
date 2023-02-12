@@ -1,17 +1,38 @@
 .back-office-list {
   .back-office {
     display: grid;
-    grid-template-columns: 500px 115px 130px 130px;
+    grid-template-columns:500px 115px 130px 130px 130px ;
     grid-template-rows: 50px;
     align-items: center;
+    gap: 12px;
   }
 
   .back-office-preview {
-    grid-template-columns: 500px 116px 130px 130px;
+    grid-template-columns: 495px 119px 130px 130px 60px;
     grid-template-rows: 50px;
     display: grid;
     margin-inline-start: -5px;
     border-bottom: 1px solid lawngreen;
     align-items: center;
+    gap: 12px;
+    .status-prev {
+      width: 74px;
+      padding-left: 6px;
+      border-radius: 3px;
+      color: white;
+      letter-spacing: 0.5px;
+      &.pending{
+        background: orange;
+      }
+      &.aproved{
+        background: rgb(28, 189, 50);
+      }
+      &.rejected{
+        background: rgb(238, 81, 34);
+      }
+    }
+    .gusest-prev {
+      justify-self: center;
+    }
   }
 }

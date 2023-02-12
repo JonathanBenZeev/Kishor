@@ -1,7 +1,7 @@
 // import { DatePicker } from './date-picker'
 import { useState } from 'react'
-import { OrderForm } from './order-form'
-import { ImagGallery } from './imag-gallery'
+import { OrderForm } from '../cmps/order-form'
+import { ImagGallery } from '../cmps/imag-gallery'
 // import { CustomDatePicker } from './custom-date-picker'
 
 export const StayApp = () => {

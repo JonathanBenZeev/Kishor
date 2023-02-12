@@ -1,11 +1,9 @@
-import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { userService } from '../services/user.service'
 import { utilService } from '../services/util.service'
 
 export const AppHeader = () => {
-  const [user, setUser] = useState(userService.getLoggedinUser())
-
+  const loggedinUser = useSelector((storeState) => storeState.userModule.user)
 
   return (
     <header className='app-header'>
@@ -17,9 +15,9 @@ export const AppHeader = () => {
         <NavLink className='home' to={'/stay'}>
           Stay
         </NavLink>
-        {user && (
+        {loggedinUser && (
           <div className='username'>
-            <span>{utilService.cutName(user.fullname)}</span>
+            <span>{utilService.cutName(loggedinUser.fullname)}</span>
           </div>
         )}
       </nav>

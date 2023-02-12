@@ -16,6 +16,9 @@ export const BackOfficeList = ({ user, inventaitons }) => {
         <div className='invent-end'>
           <h4>Checkout</h4>
         </div>
+        <div className='invent-guests'>
+          <h4>Guests</h4>
+        </div>
       </div>
       {inventaitons.map((inventaiton) => (
         <BackOfficePreview
