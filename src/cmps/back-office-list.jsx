@@ -1,8 +1,8 @@
 import { BackOfficePreview } from './back-office-preview'
 
-export const BackOfficeList = ({ user, inventaitons, isScrollOpen ,toggleScrollOpen}) => {
+export const BackOfficeList = ({ user, inventaitons, setEvaluiation }) => {
   const getInvetaions = () => {
-    return user.isAdmin ? inventaitons : user?.inventaitons
+    return user.isAdmin ? inventaitons : user?.inventaions
   }
 
   return (
@@ -26,11 +26,10 @@ export const BackOfficeList = ({ user, inventaitons, isScrollOpen ,toggleScrollO
       </div>
       {getInvetaions().map((inventaiton) => (
         <BackOfficePreview
-          isScrollOpen={isScrollOpen}
           key={inventaiton.id}
           user={user}
           inventaiton={inventaiton}
-          toggleScrollOpen={toggleScrollOpen}
+          setEvaluiation={setEvaluiation}
         />
       ))}
     </section>

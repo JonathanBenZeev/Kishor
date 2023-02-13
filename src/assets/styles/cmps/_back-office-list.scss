@@ -36,12 +36,24 @@
       }
       .scroll-opt {
         width: 104px;
-        height: 200px;
-        background-color: blue;
+        height: 122px;
+        background-color: #dcdce2;
         position: absolute;
         right: 0px;
         top: 35.7px;
         z-index: 20;
+        .evaluation {
+          cursor: pointer;
+          width: 90%;
+          height: 26px;
+          margin: auto;
+          background-color: orange;
+          border-radius: 2px;
+          h4 {
+            text-align: center;
+            margin-top: 11px;
+          }
+        }
       }
       &.pending {
         background: orange;
