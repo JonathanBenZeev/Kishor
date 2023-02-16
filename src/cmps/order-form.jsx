@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { HiOutlineMinusCircle, HiOutlinePlusCircle } from 'react-icons/hi'
 import { userService } from '../services/user.service'
 import { utilService } from '../services/util.service'
 
 import { CustomDatePicker } from './custom-date-picker'
+import { ReservationModal } from './resevation-modal'
 
 export const OrderForm = ({
   isDatepickerOpen,
@@ -16,6 +17,13 @@ export const OrderForm = ({
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
   const [guestCount, setGuestCount] = useState(1)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  useEffect(() => {
+    window.addEventListener('click', (ev) => {
+      onClosePicker()
+    })
+  }, [])
 
   const setDates = (start, end) => {
     setStartDate(start)
@@ -47,11 +55,31 @@ export const OrderForm = ({
       status: 'pending',
     }
     onUpdateStay(inventaiton)
+    setIsModalOpen(false)
+  }
+
+  const openModal = (ev) => {
+    ev.preventDefault()
+    if (!startDate || !endDate) return
+    setIsModalOpen(true)
+  }
+  const closeModal = () => {
+    setIsModalOpen(false)
   }
 
   return (
     <section className='order-form'>
-      <form onSubmit={setOrder}>
+      {isModalOpen && (
+        <ReservationModal
+          getDate={getDate}
+          startDate={startDate}
+          endDate={endDate}
+          guestCount={guestCount}
+          setOrder={setOrder}
+          closeModal={closeModal}
+        />
+      )}
+      <form>
         <div className='date-piker'>
           <div
             onClick={(ev) => onTogglePicker(ev)}
@@ -101,7 +129,13 @@ export const OrderForm = ({
             )}
           </div>
         </div>
-        <button>Reserve</button>
+        <button
+          onClick={(ev) => {
+            openModal(ev)
+          }}
+        >
+          Reserve
+        </button>
       </form>
     </section>
   )

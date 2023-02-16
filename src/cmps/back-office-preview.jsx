@@ -1,14 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { IoChevronDownOutline } from 'react-icons/io5'
 import { IoChevronUpOutline } from 'react-icons/io5'
 
 export const BackOfficePreview = ({ inventaiton, user, setEvaluiation }) => {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
+  const elModal= useRef()
   const evaluations = [
-    { id: 1, title: 'pending', back: { backgroundColor: 'orange' } },
-    { id: 2, title: 'aproved', back: { backgroundColor: 'rgb(28, 189, 50)' } },
-    { id: 3, title: 'rejected', back: { backgroundColor: 'rgb(255, 60, 0)' } },
+    { id: 1, title: 'pending', back: { backgroundColor: '#fbaf3c' } },
+    { id: 2, title: 'aproved', back: { backgroundColor: '#8fd26f' } },
+    { id: 3, title: 'rejected', back: { backgroundColor: '#ff6664' } },
   ]
+  function handleScrollModal(){
+    elModal.current?.focus();
+    if (elModal.current)  elModal.current.scrollIntoView()
+  }
   useEffect(() => {
     window.addEventListener('click', (ev) => {
       setIsOpen(false)
@@ -30,6 +35,7 @@ export const BackOfficePreview = ({ inventaiton, user, setEvaluiation }) => {
         {user.isAdmin && (
           <span
             onClick={(ev) => {
+              handleScrollModal()
               ev.stopPropagation()
               setIsOpen(!isOpen)
             }}
@@ -38,7 +44,7 @@ export const BackOfficePreview = ({ inventaiton, user, setEvaluiation }) => {
           </span>
         )}
         {user.isAdmin && isOpen && (
-          <div className='scroll-opt'>
+          <div onClick={handleScrollModal} ref={elModal} className='scroll-opt' >
             {evaluations.map((evaluation) => {
               return (
                 <div

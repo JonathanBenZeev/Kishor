@@ -2,7 +2,7 @@ import { BackOfficePreview } from './back-office-preview'
 
 export const BackOfficeList = ({ user, inventaitons, setEvaluiation }) => {
   const getInvetaions = () => {
-    return user.isAdmin ? inventaitons : user?.inventaions
+    return user?.isAdmin ? inventaitons : user.inventaions
   }
 
   return (

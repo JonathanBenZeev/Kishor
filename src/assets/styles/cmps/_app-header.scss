@@ -7,34 +7,40 @@
   justify-content: space-between;
   padding: 0 20px;
   box-shadow: 1px chartreuse;
+  .logo {
+    margin-top: 28px;
 
+    img {
+      width: 14%;
+    }
+  }
   nav {
     display: flex;
     font-size: 20px;
-   .home{
-    margin-right: 10px;
-   }
-   a{
-    text-decoration: none;
-    &:active{
-        color: #cfedd4;
+    .home {
+      margin-right: 10px;
     }
-    &.active{
+    a {
+      text-decoration: none;
+      &:active {
         color: #cfedd4;
+      }
+      &.active {
+        color: #cfedd4;
+      }
     }
-   }
-   .username{
-    display: grid;
-    place-content: center;
-    margin-top: 6px;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background-color: rgb(14, 66, 66);
-    span{
+    .username {
+      display: grid;
+      place-content: center;
+      margin-top: 6px;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: rgb(14, 66, 66);
+      span {
         margin-bottom: 2px;
         color: #cfedd4;
+      }
     }
-   }
   }
 }

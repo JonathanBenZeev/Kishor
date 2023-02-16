@@ -11,6 +11,13 @@ export const StayApp = () => {
   const home = useSelector((storeState) => storeState.stayModule.stay)
   const user = useSelector((storeState) => storeState.userModule.user)
 
+  useEffect(() => {
+    loadStay()
+  }, [])
+
+  const loadStay = () => {
+    setStay()
+  }
 
   const onUpdateStay = async (inventaiton) => {
     try {
