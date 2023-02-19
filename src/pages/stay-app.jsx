@@ -5,15 +5,20 @@ import { OrderForm } from '../cmps/order-form'
 import { setStay, updateStay } from '../store/stay.actions'
 import { updateUser } from '../store/user.actions'
 // import { ImagGallery } from '../cmps/imag-gallery'
+import { userService } from '../services/user.service'
+import { useNavigate } from 'react-router-dom'
 
 export const StayApp = () => {
+  const navigate = useNavigate()
   const [isDatepickerOpen, setIsDatepickerOpen] = useState(false)
   const home = useSelector((storeState) => storeState.stayModule.stay)
   const user = useSelector((storeState) => storeState.userModule.user)
-
+  
   useEffect(() => {
-    loadStay()
-  }, [])
+    const loggedinUser = userService.getLoggedinUser()
+    if (!loggedinUser) navigate('/login')
+    else loadStay()
+  }, [user])
 
   const loadStay = () => {
     setStay()
@@ -65,7 +70,7 @@ export const StayApp = () => {
     setIsDatepickerOpen(false)
   }
 
-  if (!home) return <h1>Loading..</h1>
+  if (!home ) return <h1>Loading..</h1>
   return (
     <section className='stay-app' onClick={(ev) => onClosePicker(ev)}>
       <div className='date'></div>

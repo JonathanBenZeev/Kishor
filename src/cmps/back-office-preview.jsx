@@ -10,15 +10,20 @@ export const BackOfficePreview = ({ inventaiton, user, setEvaluiation }) => {
     { id: 2, title: 'aproved', back: { backgroundColor: '#8fd26f' } },
     { id: 3, title: 'rejected', back: { backgroundColor: '#ff6664' } },
   ]
-  function handleScrollModal(){
-    elModal.current?.focus();
-    if (elModal.current)  elModal.current.scrollIntoView()
-  }
   useEffect(() => {
     window.addEventListener('click', (ev) => {
       setIsOpen(false)
     })
   }, [])
+  useEffect(() => {
+    handleScrollModal()
+  }, [isOpen])
+
+  function handleScrollModal(){
+    elModal.current?.focus();
+    if (elModal.current)  elModal.current.scrollIntoView()
+  }
+
   return (
     <section className='back-office-preview'>
       <div className='name-prev'>{inventaiton.byUser.fullname}</div>

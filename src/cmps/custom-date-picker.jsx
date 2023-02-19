@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
 import { FiChevronRight } from 'react-icons/fi'
@@ -14,6 +14,7 @@ export const CustomDatePicker = ({
   const [currMonth, setCurrMonth] = useState(new Date().getMonth())
   const [startDate, setStartDate] = useState(start)
   const [endDate, setEndDate] = useState(end)
+  const elModal = useRef()
 
   const months = [
     'January',
@@ -32,12 +33,17 @@ export const CustomDatePicker = ({
 
   useEffect(() => {
     checkYear()
+    handleScrollModal()
   }, [currMonth])
 
   useEffect(() => {
     setDates(startDate, endDate)
   }, [startDate, endDate])
 
+  function handleScrollModal() {
+    elModal.current?.focus()
+    if (elModal.current) elModal.current.scrollIntoView()
+  }
   const checkYear = () => {
     if (currMonth < 0 || currMonth > 11) {
       var date = new Date(currYear, currMonth)
@@ -140,7 +146,7 @@ export const CustomDatePicker = ({
   }
 
   return (
-    <section className='custom-date-picker'>
+    <section className='custom-date-picker' ref={elModal}>
       <header>
         <p className='current-date'>
           {months[currMonth]} {currYear}

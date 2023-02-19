@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { login, signup } from '../store/user.actions'
-import { userService } from '../services/user.service.js'
 
 export const LoginSignup = () => {
   const { pathname } = useLocation()
@@ -12,7 +11,6 @@ export const LoginSignup = () => {
     password: '',
     fullname: '',
   })
-  
 
   const onIsSignup = () => {
     if (pathname === '/signup') setIsSignup(true)
@@ -44,13 +42,15 @@ export const LoginSignup = () => {
       return
     signup(credentials)
   }
-  const onLogin = (ev = null) => {
+  const onLogin = async (ev = null) => {
     if (ev) ev.preventDefault()
-    if (!credentials.username || !credentials.password)
-      return
-    login(credentials)
-    navigate('/stay')
-
+    if (!credentials.username || !credentials.password) return
+    try {
+      await login(credentials)
+      navigate('/stay')
+    } catch (err) {
+      console.log('Logged in failed', err)
+    }
   }
   return (
     <section className='login-page flex column'>

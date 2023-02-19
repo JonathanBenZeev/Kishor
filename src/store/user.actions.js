@@ -35,7 +35,6 @@ export async function login(credentials) {
       user,
     })
 
-    console.log('user:', user)
     return user
   } catch (err) {
     console.log('Cannot login', err)
