@@ -8,12 +8,23 @@
   padding: 0 20px;
   box-shadow: 1px chartreuse;
   .logo {
-    margin-top: 28px;
+    margin-top: 10px;
+    margin-left: -29px;
 
     img {
-      width: 14%;
+      width: 100px;
     }
   }
+  @media (min-width: 500px) {
+    .logo {
+      margin-top: 28px;
+
+      img {
+        width: 14%;
+      }
+    }
+  }
+
   nav {
     display: flex;
     font-size: 18px;

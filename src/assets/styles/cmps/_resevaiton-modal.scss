@@ -1,0 +1,50 @@
+.modal-wareper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 80;
+  // transition: 4s filter linear;
+}
+
+.reserve-modal {
+  align-items: baseline;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  font-family: 700;
+  font-size: 25px;
+  color: #dbd2d2;
+  font-weight: 600;
+  width: 280px;
+  height: 286px;
+  background-color: rgba(155, 169, 149, 0.8392156863);
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  z-index: 100;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-radius: 10px;
+
+  h4 {
+    font-size: 25px;
+    color: #483f3f;
+    margin-inline-start: 20px;
+  }
+  h5 {
+    margin: 0;
+  }
+  p {
+    font-size: 17px;
+  }
+  .button-conainer {
+    display: flex;
+    gap: 20px;
+    // margin-left: 100px;
+  }
+}

@@ -19,9 +19,9 @@ export async function setStay() {
         throw err
     }
 }
-export async function updateStay(stay) {
+export async function updateStay(stay, inventaiton) {
     try {
-        const updatedStay = await stayService.save(stay)
+        const updatedStay = await stayService.save(stay, inventaiton)
         store.dispatch({
             type: UPDATE_STAY,
             updatedStay

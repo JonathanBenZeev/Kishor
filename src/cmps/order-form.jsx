@@ -13,6 +13,7 @@ export const OrderForm = ({
   onClosePicker,
   onUpdateStay,
   inventaions,
+  homeId,
 }) => {
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
@@ -43,16 +44,21 @@ export const OrderForm = ({
 
   const setOrder = (ev = null) => {
     ev.preventDefault()
+    const loggedinUser = userService.getLoggedinUser()
+    console.log(loggedinUser.email)
+
     const inventaiton = {
-      id: utilService.makeId(),
+      // id: utilService.makeId(),
       byUser: {
-        fullname: userService.getLoggedinUser().fullname,
-        id: userService.getLoggedinUser()._id,
+        fullname: loggedinUser.fullname,
+        id: loggedinUser._id,
+        email: loggedinUser.email,
       },
       startDate: getDate('start'),
       endDate: getDate('end'),
       guests: guestCount,
       status: 'pending',
+      byStayId: homeId,
     }
     onUpdateStay(inventaiton)
     setIsModalOpen(false)

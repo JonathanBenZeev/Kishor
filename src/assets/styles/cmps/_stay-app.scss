@@ -1,11 +1,11 @@
 .stay-app {
   max-width: 1120px;
   .img-list {
-    display: grid;
-    gap: 4px;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: 148px 148px;
+    display: none;
     @media (min-width: 500px) {
+      display: grid;
+      // gap: 4px;
+      grid-template-columns: 2fr 1fr 1fr;
       gap: 10px;
       grid-template-rows: 194px 194px;
     }
@@ -29,33 +29,16 @@
       }
     }
   }
-  .details-container{
+  .details-container {
     display: flex;
     margin-top: 20px;
-    gap: 50px;
+    gap: 100px;
+    flex-direction: column-reverse;
   }
-  
-}
-
-
-.rdrCalendarWrapper {
-  padding-top: 20px;
-
-  .rdrMonthAndYearWrapper {
-    position: absolute;
-    right: 28px;
-    left: 25px;
+  @media (min-width: 500px) {
+    .details-container {
+      // flex-direction: row;
+      flex-direction: row;
+    }
   }
-
-  .rdrMonthAndYearPickers {
-    display: none;
-  }
-
-  .rdrMonthName {
-    text-align: center;
-    color:black;
-    font-size: 1rem;
-    font-family: cereal-medium;
-  }
-
 }

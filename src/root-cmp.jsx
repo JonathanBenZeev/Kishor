@@ -12,8 +12,8 @@ export function RootCmp() {
       <AppHeader />
       <main>
         <Routes>
-          <Route path='/' element={<HomePage />} exact={true} />
-          <Route path='/stay' element={<StayApp />} exact={true} />
+          {/* <Route path='/' element={<HomePage />} exact={true} /> */}
+          <Route path='/' element={<StayApp />} exact={true} />
           <Route path='/orders' element={<Dashboard />} exact={true} />
           <Route element={<LoginSignup />} path='/signup' exact={true} />
           <Route element={<LoginSignup />} path='/login' exact={true} />

@@ -2,7 +2,11 @@ import { BackOfficePreview } from './back-office-preview'
 
 export const BackOfficeList = ({ user, inventaitons, setEvaluiation }) => {
   const getInvetaions = () => {
-    return user?.isAdmin ? inventaitons : user?.inventaions
+    // return user?.isAdmin ? inventaitons : user?.inventaions
+    if (user?.isAdmin) return inventaitons
+    else {
+      return inventaitons.filter((order) => order.byUser.id === user._id)
+    }
   }
 
   return (
@@ -26,7 +30,7 @@ export const BackOfficeList = ({ user, inventaitons, setEvaluiation }) => {
       </div>
       {getInvetaions().map((inventaiton) => (
         <BackOfficePreview
-          key={inventaiton.id}
+          key={inventaiton._id}
           user={user}
           inventaiton={inventaiton}
           setEvaluiation={setEvaluiation}

@@ -23,9 +23,9 @@ export const AppHeader = () => {
         <NavLink className='home' to={'/'}>
           Home
         </NavLink>
-        <NavLink className='home' to={'/stay'}>
+        {/* <NavLink className='home' to={'/stay'}>
           Stay
-        </NavLink>
+        </NavLink> */}
         <NavLink className='home' to={'/orders'}>
           Orders
         </NavLink>

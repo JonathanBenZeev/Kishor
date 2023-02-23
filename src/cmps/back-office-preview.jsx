@@ -21,7 +21,7 @@ export const BackOfficePreview = ({ inventaiton, user, setEvaluiation }) => {
 
   function handleScrollModal(){
     elModal.current?.focus();
-    if (elModal.current)  elModal.current.scrollIntoView()
+    if (elModal.current)  elModal.current.scrollIntoViewIfNeeded()
   }
 
   return (

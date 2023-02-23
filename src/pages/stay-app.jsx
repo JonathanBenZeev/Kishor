@@ -3,22 +3,37 @@ import { useSelector } from 'react-redux'
 import { OrderForm } from '../cmps/order-form'
 // import { stayService } from '../services/stay.service.local'
 import { setStay, updateStay } from '../store/stay.actions'
-import { updateUser } from '../store/user.actions'
-// import { ImagGallery } from '../cmps/imag-gallery'
+import { loadUser, updateUser } from '../store/user.actions'
+import { ImagGallery } from '../cmps/imag-gallery'
 import { userService } from '../services/user.service'
 import { useNavigate } from 'react-router-dom'
+import { PlaceDetails } from '../cmps/place-details'
+import { UserMsg } from '../cmps/user-msg'
+import { addOrder, loadOrders } from '../store/order.actions'
+import emailjs from '@emailjs/browser'
+import { utilService } from '../services/util.service'
 
 export const StayApp = () => {
   const navigate = useNavigate()
   const [isDatepickerOpen, setIsDatepickerOpen] = useState(false)
   const home = useSelector((storeState) => storeState.stayModule.stay)
   const user = useSelector((storeState) => storeState.userModule.user)
-  
+  const orders = useSelector((storeState) => storeState.orderModule.orders)
+  const [isUserMsgOpen, setIsUserMsgOpen] = useState({
+    isOpen: false,
+    txt: '',
+    status: '',
+  })
   useEffect(() => {
-    const loggedinUser = userService.getLoggedinUser()
+    const loggedinUser = userService?.getLoggedinUser()
     if (!loggedinUser) navigate('/login')
     else loadStay()
   }, [user])
+
+  useEffect(() => {
+    loadUser(userService.getLoggedinUser()?._id)
+    loadOrders()
+  }, [])
 
   const loadStay = () => {
     setStay()
@@ -26,20 +41,29 @@ export const StayApp = () => {
 
   const onUpdateStay = async (inventaiton) => {
     try {
-      home.inventaions.unshift(inventaiton)
-      user.inventaions.unshift(inventaiton)
-      await updateStay(home)
-      await updateUser(user)
+      await addOrder(inventaiton)
+      // await emailjs.send(
+      //   'service_fhsoi34',
+      //   'template_o20ywjc',
+      //   utilService.getOrderTemplate(),
+      //   '2Ho_NuLz-ByuFz7Jw'
+      // )
+      setUserMsg('Order sent successfully', 'success')
     } catch (err) {
       console.log('Can not update stay', err)
     }
   }
 
+  const setUserMsg = (txt, status) => {
+    setIsUserMsgOpen({ isOpen: true, txt, status })
+    setTimeout(() => {
+      closeUserMsg()
+    }, 5000)
+  }
+
   const getBusyDates = () => {
     const busyDays = []
-    const busy = home.inventaions.filter(
-      (inventaion) => inventaion.status === 'aproved'
-    )
+    const busy = orders.filter((inventaion) => inventaion.status === 'aproved')
     busy.forEach((day) => {
       let start = +day.startDate.split('/')[0]
       let end = +day.endDate.split('/')[0]
@@ -57,6 +81,10 @@ export const StayApp = () => {
     return busyDays
   }
 
+  const closeUserMsg = () => {
+    setIsUserMsgOpen({ isOpen: false, txt: '', status: '' })
+  }
+
   const onTogglePicker = (ev) => {
     ev.stopPropagation()
     setIsDatepickerOpen(!isDatepickerOpen)
@@ -70,7 +98,9 @@ export const StayApp = () => {
     setIsDatepickerOpen(false)
   }
 
-  if (!home ) return <h1>Loading..</h1>
+  // console.log(user)
+
+  if (!home || !user) return <h1>Loading..</h1>
   return (
     <section className='stay-app' onClick={(ev) => onClosePicker(ev)}>
       <div className='date'></div>
@@ -83,14 +113,9 @@ export const StayApp = () => {
           </div>
         ))}
       </div>
-      {/* <ImagGallery imgs={home.imgs} /> */}
+      <ImagGallery imgs={home.imgs} />
       <section className='details-container'>
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error
-          veritatis aliquid officia necessitatibus vitae pariatur quis placeat.
-          Aut accusamus, nobis modi ea eligendi perspiciatis quae laboriosam
-          ullam adipisci omnis! Nesciunt.
-        </div>
+        <PlaceDetails />
         <OrderForm
           inventaions={getBusyDates()}
           isDatepickerOpen={isDatepickerOpen}
@@ -98,8 +123,16 @@ export const StayApp = () => {
           onOpenPicker={onOpenPicker}
           onClosePicker={onClosePicker}
           onUpdateStay={onUpdateStay}
+          homeId={home._id}
         />
       </section>
+      {isUserMsgOpen.isOpen && (
+        <UserMsg
+          txt={isUserMsgOpen.txt}
+          status={isUserMsgOpen.status}
+          closeUserMsg={closeUserMsg}
+        />
+      )}
     </section>
   )
 }

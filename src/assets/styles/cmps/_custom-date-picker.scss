@@ -1,7 +1,7 @@
 .custom-date-picker {
   border: #878787 1px solid;
   font-family: 'Poppins', sans-serif;
-  width: 500px;
+  // width: 500px;
   background: #fff;
   border-radius: 10px;
   padding: 0;
@@ -129,4 +129,11 @@
 
     
   
+}
+
+
+@media (min-width: 500px){
+  .custom-date-picker{
+    width: 500px;
+  }
 }

@@ -1,13 +1,13 @@
 .order-form {
-  width: 300px;
+  width: 290px;
   height: 210px;
   padding: 24px;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 12px;
   padding: 24px;
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
-  position: relative;
-
+  margin: auto;
+  margin-bottom: -60px;
   form {
     display: flex;
     flex-direction: column;
@@ -79,6 +79,28 @@
     z-index: 30;
     position: absolute;
     right: 0;
+    // top: 24px;
+
+  }
+}
+
+
+
+@media (min-width: 500px){
+  .order-form {
+    width: 300px;
+    height: 210px;
+    padding: 24px;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+    // position: relative;
+    position: sticky;
+    top: 50px;
+    margin: 0;
+  }
+  .picker {
     top: 24px;
   }
 }

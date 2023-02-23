@@ -13,7 +13,7 @@ export const CLEAR_NOTIFICATIONS = 'CLEAR_NOTIFICATIONS'
 
 
 const initialState = {
-    user: userService.getLoggedinUser(),
+    user: null,
     users: [],
 }
 

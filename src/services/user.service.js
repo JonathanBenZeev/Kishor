@@ -19,7 +19,7 @@ export const userService = {
 
 async function get(userId) {
     // return await storageService.get(USER_KEY, userId)
-    if(!userId) return null
+    if (!userId) return null
     return await httpService.get(`user/${userId}`)
 
 }
@@ -34,7 +34,7 @@ async function signup(credentials) {
 
     // credentials.inventaions = []
     // const user = await storageService.post(USER_KEY, credentials)
-     const user = await httpService.post('auth/signup', credentials)
+    const user = await httpService.post('auth/signup', credentials)
     _saveLoggedinUser(user)
     return user
 }
@@ -55,6 +55,13 @@ function getUsers() {
 }
 
 async function updateUser(user) {
+
+    // if (inventaiton) {
+    //     const updatedOrders = utilService.statusValidiation(user.inventaions, inventaiton)
+    //     console.log(updatedOrders);
+    //     user.inventaions = updatedOrders
+    // }
+    // console.log(user);
     // return storageService.put(USER_KEY, user)
     return await httpService.put(`user/${user._id}`, user)
 

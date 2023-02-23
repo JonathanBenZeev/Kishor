@@ -47,7 +47,7 @@ export const LoginSignup = () => {
     if (!credentials.username || !credentials.password) return
     try {
       await login(credentials)
-      navigate('/stay')
+      navigate('/')
     } catch (err) {
       console.log('Logged in failed', err)
     }
