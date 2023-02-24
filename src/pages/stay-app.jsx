@@ -116,6 +116,7 @@ export const StayApp = () => {
       <ImagGallery imgs={home.imgs} />
       <section className='details-container'>
         <PlaceDetails />
+     
         <OrderForm
           inventaions={getBusyDates()}
           isDatepickerOpen={isDatepickerOpen}

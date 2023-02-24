@@ -10,6 +10,7 @@ export const LoginSignup = () => {
     username: '',
     password: '',
     fullname: '',
+    email: '',
   })
 
   const onIsSignup = () => {
@@ -33,14 +34,25 @@ export const LoginSignup = () => {
       username: '',
       password: '',
       fullname: '',
+      email: '',
     })
   }
 
-  const onSignUp = (ev = null) => {
+  const onSignUp = async (ev = null) => {
     if (ev) ev.preventDefault()
-    if (!credentials.username || !credentials.password || !credentials.fullname)
+    if (
+      !credentials.username ||
+      !credentials.password ||
+      !credentials.fullname ||
+      !credentials.email
+    )
       return
-    signup(credentials)
+    try {
+      await signup(credentials)
+      navigate('/')
+    } catch (err) {
+      console.log('Signup failed', err)
+    }
   }
   const onLogin = async (ev = null) => {
     if (ev) ev.preventDefault()
@@ -69,6 +81,15 @@ export const LoginSignup = () => {
                 placeholder='Enter full name'
                 value={credentials.fullname}
                 onChange={handleChange}
+              />
+              <input
+                type='email'
+                id='email'
+                name='email'
+                placeholder='Enter email address'
+                value={credentials.email}
+                onChange={handleChange}
+                required
               />
             </>
           ) : (

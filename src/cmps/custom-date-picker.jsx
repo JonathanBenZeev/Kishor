@@ -42,7 +42,7 @@ export const CustomDatePicker = ({
 
   function handleScrollModal() {
     elModal.current?.focus()
-    if (elModal.current) elModal.current.scrollIntoView()
+    if (elModal.current) elModal.current.scrollIntoViewIfNeeded()
   }
   const checkYear = () => {
     if (currMonth < 0 || currMonth > 11) {

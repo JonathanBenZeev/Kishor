@@ -4,6 +4,7 @@ import { GiFireplace, GiMountains } from 'react-icons/gi'
 import { CgScreen } from 'react-icons/cg'
 import { TbPool, TbToolsKitchen } from 'react-icons/tb'
 import { IoSnowOutline } from 'react-icons/io5'
+// import { Recommendations } from './Recommendations'
 export const PlaceDetails = () => {
   return (
     <div className='place-details'>
@@ -109,6 +110,7 @@ export const PlaceDetails = () => {
         </div>
       </article>
       <hr />
+      {/* <Recommendations /> */}
     </div>
   )
 }

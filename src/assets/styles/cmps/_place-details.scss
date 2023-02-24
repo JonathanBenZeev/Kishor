@@ -1,6 +1,6 @@
 .place-details {
   width: 100%;
-  
+
   ul {
     display: flex;
     gap: 20px;
@@ -32,25 +32,31 @@
   }
   .place-offers {
     margin: 30px 0;
-    h3{
+    h3 {
       margin: 30px 0;
     }
     .emnetis-container {
       display: flex;
-      gap: 150px;
-      .emnetis{
+      gap: 50px;
+
+      .emnetis {
         display: flex;
         gap: 10px;
         align-self: baseline;
       }
-      .logo{
+      .logo {
         font-size: 30px;
       }
-      .logo-desc{
+      .logo-desc {
         font-size: 16px;
         // margin: 10px;
         // margin-bottom: 20px;
         margin-top: 8px;
+      }
+    }
+    @media (min-width: 500px) {
+      .emnetis-container {
+        gap: 150px;
       }
     }
   }

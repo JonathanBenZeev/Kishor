@@ -2,10 +2,10 @@
   box-sizing: border-box;
 }
 
-::selection {
-  background-color: $clr1;
-  color: $clr6;
-}
+// ::selection {
+//   background-color: $clr1;
+//   color: $clr6;
+// }
 
 html {
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
@@ -21,6 +21,7 @@ body {
   margin: auto;
   // background-color: blueviolet;
   background-color: aliceblue;
+  overflow-x: hidden;
 }
 
 h1,
