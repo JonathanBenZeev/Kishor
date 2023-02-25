@@ -1,7 +1,7 @@
 .back-office-list {
   font-size: 13px;
   .back-office {
-    grid-template-columns: 83px 80px 72px 63px 82px;
+    grid-template-columns: 83px 80px 72px 63px 42px;
     display: grid;
     grid-template-rows: 50px;
     align-items: center;
@@ -9,7 +9,7 @@
   }
 
   .back-office-preview {
-    grid-template-columns: 81px 82px 71px 68px 34px;;
+    grid-template-columns: 81px 82px 71px 68px 30px;
     grid-template-rows: 50px;
     display: grid;
     margin-inline-start: -5px;

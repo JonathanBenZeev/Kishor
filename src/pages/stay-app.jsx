@@ -12,6 +12,7 @@ import { UserMsg } from '../cmps/user-msg'
 import { addOrder, loadOrders } from '../store/order.actions'
 import emailjs from '@emailjs/browser'
 import { utilService } from '../services/util.service'
+import { Loader } from '../cmps/loader'
 
 export const StayApp = () => {
   const navigate = useNavigate()
@@ -100,7 +101,7 @@ export const StayApp = () => {
 
   // console.log(user)
 
-  if (!home || !user) return <h1>Loading..</h1>
+  if (!home || !user) return <Loader />
   return (
     <section className='stay-app' onClick={(ev) => onClosePicker(ev)}>
       <div className='date'></div>
@@ -116,7 +117,7 @@ export const StayApp = () => {
       <ImagGallery imgs={home.imgs} />
       <section className='details-container'>
         <PlaceDetails />
-     
+
         <OrderForm
           inventaions={getBusyDates()}
           isDatepickerOpen={isDatepickerOpen}

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { BackOfficeList } from '../cmps/back-office-list'
 import { FilterBy } from '../cmps/filter-by'
+import { Loader } from '../cmps/loader'
 import { userService } from '../services/user.service'
 import { utilService } from '../services/util.service'
 import { loadOrders, setOrders } from '../store/order.actions'
@@ -76,17 +77,17 @@ export const Dashboard = () => {
         inventaiton
       )
       ordersToUpdate = updatedOrders
-      
+
       setOrders(ordersToUpdate)
-      
-            // if (evaluiation === 'aproved') {
-            //   await emailjs.send(
-            //     'service_fhsoi34',
-            //     'template_z5xanmq',
-            //     utilService.getConfirmationTemplate(inventaiton),
-            //     '2Ho_NuLz-ByuFz7Jw'
-            //   )
-            // }
+
+      // if (evaluiation === 'aproved') {
+      //   await emailjs.send(
+      //     'service_fhsoi34',
+      //     'template_z5xanmq',
+      //     utilService.getConfirmationTemplate(inventaiton),
+      //     '2Ho_NuLz-ByuFz7Jw'
+      //   )
+      // }
     } catch (err) {
       console.log(err)
     }
@@ -126,7 +127,7 @@ export const Dashboard = () => {
   //   }
   // }
 
-  if (!user || !home || !orders?.length) return <h1>Loading...</h1>
+  if (!user || !home || !orders?.length) return <Loader />
   return (
     <section className='home-page'>
       <h1>{user.fullname}</h1>
