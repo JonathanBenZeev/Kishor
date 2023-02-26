@@ -7,3 +7,9 @@
   width: 100%;
   z-index: 1000;
 }
+
+@media (min-width: 840px) {
+  .loader-screen {
+    width: 100vh;
+  }
+}

@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { OrderForm } from '../cmps/order-form'
-// import { stayService } from '../services/stay.service.local'
-import { setStay, updateStay } from '../store/stay.actions'
-import { loadUser, updateUser } from '../store/user.actions'
+import { setStay } from '../store/stay.actions'
+import { loadUser } from '../store/user.actions'
 import { ImagGallery } from '../cmps/imag-gallery'
 import { userService } from '../services/user.service'
 import { useNavigate } from 'react-router-dom'
 import { PlaceDetails } from '../cmps/place-details'
 import { UserMsg } from '../cmps/user-msg'
 import { addOrder, loadOrders } from '../store/order.actions'
-import emailjs from '@emailjs/browser'
-import { utilService } from '../services/util.service'
 import { Loader } from '../cmps/loader'
+import { emailService } from '../services/email.service'
 
 export const StayApp = () => {
   const navigate = useNavigate()
@@ -42,13 +40,9 @@ export const StayApp = () => {
 
   const onUpdateStay = async (inventaiton) => {
     try {
+      const { startDate, endDate, byUser } = inventaiton
       await addOrder(inventaiton)
-      // await emailjs.send(
-      //   'service_fhsoi34',
-      //   'template_o20ywjc',
-      //   utilService.getOrderTemplate(),
-      //   '2Ho_NuLz-ByuFz7Jw'
-      // )
+      await emailService.newOrderMail(startDate, endDate, byUser)
       setUserMsg('Order sent successfully', 'success')
     } catch (err) {
       console.log('Can not update stay', err)

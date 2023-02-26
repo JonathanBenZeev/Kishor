@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { BackOfficeList } from '../cmps/back-office-list'
 import { FilterBy } from '../cmps/filter-by'
 import { Loader } from '../cmps/loader'
+import { emailService } from '../services/email.service'
 import { userService } from '../services/user.service'
 import { utilService } from '../services/util.service'
 import { loadOrders, setOrders } from '../store/order.actions'
-import { setStay, updateStay } from '../store/stay.actions'
-// import emailjs from '@emailjs/browser'
+import { setStay } from '../store/stay.actions'
 
 export const Dashboard = () => {
   const navigate = useNavigate()
@@ -77,55 +77,14 @@ export const Dashboard = () => {
         inventaiton
       )
       ordersToUpdate = updatedOrders
-
       setOrders(ordersToUpdate)
-
-      // if (evaluiation === 'aproved') {
-      //   await emailjs.send(
-      //     'service_fhsoi34',
-      //     'template_z5xanmq',
-      //     utilService.getConfirmationTemplate(inventaiton),
-      //     '2Ho_NuLz-ByuFz7Jw'
-      //   )
-      // }
+      if (evaluiation === 'aproved') {
+        await emailService.confirmEmail(inventaiton)
+      }
     } catch (err) {
       console.log(err)
     }
   }
-  // async function setEvaluiation(ev, evaluiation, inventaiton) {
-  //   try {
-  //     // change the evaluiation in the home-inventaitions:
-  //     const currInventaionIdx = home.inventaions.findIndex(
-  //       (invent) => inventaiton.id === invent.id
-  //     )
-  //     home.inventaions[currInventaionIdx].status = evaluiation
-  //     let updatedOrders = utilService.statusValidiation(
-  //       home.inventaions,
-  //       inventaiton
-  //     )
-  //     home.inventaions = updatedOrders
-
-  //     //change the evaluiation in all users-inventaitions:
-  //     // let users = await userService.getUsers()
-  //     // console.log(users)
-  //     // users = users.map((user) => {
-
-  //     // })
-
-  //     // console.log(users)
-  //     const currUser = await userService.get(inventaiton.byUser.id)
-
-  //     updatedOrders = updatedOrders.filter(
-  //       (invent) => invent.byUser.id === currUser._id
-  //     )
-  //     currUser.inventaions = updatedOrders
-  //     // setUser(currUser)
-  //     await updateStay(home, inventaiton)
-  //     await userService.updateUser(currUser, inventaiton)
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
 
   if (!user || !home || !orders?.length) return <Loader />
   return (

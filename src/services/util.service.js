@@ -3,10 +3,7 @@ export const utilService = {
     saveToStorage,
     loadFromStorage,
     cutName,
-    statusValidiation,
-    getOrderTemplate,
-    getConfirmationTemplate
-
+    statusValidiation
 }
 
 function makeId(length = 6) {
@@ -46,23 +43,3 @@ function statusValidiation(orders, inventaiton) {
 }
 
 
-function getOrderTemplate() {
-    return {
-        username: 'Ellen Krosney',
-        home: 'Kishor',
-        msg: 'You have received a new order, please enter the application to confirm!',
-        email: 'yonatanbz6@gmail.com'
-    }
-}
-
-
-function getConfirmationTemplate({ byUser, startDate, endDate }) {
-    return {
-        username: byUser.fullname,
-        email: byUser.email,
-        home: 'Kishor',
-        message: `We are very happy to confirm your order between ${startDate} to ${endDate}.
-                 please take care of our beautiful home! 
-        `
-    }
-}

@@ -2,7 +2,7 @@
     <style>
         .line {
             fill: none;
-            stroke: #aaa;
+            stroke: #468a51;
             stroke-width: 8;
             stroke-dasharray: 40;
         }
